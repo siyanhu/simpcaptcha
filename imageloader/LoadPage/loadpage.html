@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Init Page</title>
+    <style>
+        img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        /* Create three equal columns that floats next to each other */
+        .column {
+            float: left;
+            width: 33.33%;
+            height: 100%;
+            /*padding: 10px;*/
+        }
+        /* Clear floats after the columns */
+        .row {
+            width: 33%;
+            height: 100px;
+        }
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <div id="row0" class="row" style="background-color:#aaa;">
+        <div id="column00" class="column"></div>
+        <div id="column01" class="column"></div>
+        <div id="column02" class="column"></div>
+    </div>
+    <div id="row1" class="row" style="background-color:#aaa;">
+        <div id="column10" class="column"></div>
+        <div id="column11" class="column"></div>
+        <div id="column12" class="column"></div>
+    </div>
+    <div id="row2" class="row" style="background-color:#aaa;">
+        <div id="column20" class="column"></div>
+        <div id="column21" class="column"></div>
+        <div id="column22" class="column" onclick= click(this.id)></div>
+    </div>
+    <script>
+        function load(){
+            var i;
+            for (i = 0; i < 9; i++) {
+                var index_str = i.toString();
+                var newElement = document.createElement('div');
+                newElement.id = index_str;
+                newElement.className = 'captcha';
+
+                var img = document.createElement("img");
+                img.src = 'assets/' + index_str + '.jpeg';
+                img.alt = index_str;
+
+                newElement.appendChild(img);
+                var row = Math.floor(i / 3);
+                var column = 'column' + row + (i % 3).toString();
+                document.getElementById(column).appendChild(newElement);
+            }
+        }
+        load();
+    </script>
+    <script>
+        function click(clicked_id) {
+            var clickedElement = document.getElementById(clicked_id);
+            if (clickedElement) {
+                clickedElement.addEventListener('click', function (event) {
+
+                });
+            }
+        }
+        function hasChildByClassName(parent, child_class) {
+            var childDivs = parent.getElementsByClassName(child_class);
+            if (childDivs.length)
+                return YES;
+            else
+                return NO;
+        }
+    </script>
+</body>
+</html>
