@@ -2,7 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Init Page</title>
+    <title>Captcha Page</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Slabo+27px|Thasadith" rel="stylesheet">
+
+    <!-- Main Stylesheet File -->
     <style>
         img {
             max-width: 100%;
@@ -23,11 +31,11 @@
             width: 33%;
             height: 100px;
         }
-        .row:after {
-            content: "";
-            display: table;
-            clear: both;
-        }
+        /*.row:after {*/
+            /*content: "";*/
+            /*display: table;*/
+            /*clear: both;*/
+        /*}*/
     </style>
 </head>
 <body>
@@ -45,6 +53,10 @@
         <div id="column20" class="column"></div>
         <div id="column21" class="column"></div>
         <div id="column22" class="column" onclick= click(this.id)></div>
+    </div>
+    <div id="buttons" class="button" style="background-color:#aaa;">
+        <button type="button">next</button>
+        <button type="button">refresh</button>
     </div>
     <script>
         function load(){
