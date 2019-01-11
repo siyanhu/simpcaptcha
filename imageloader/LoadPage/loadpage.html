@@ -5,16 +5,20 @@
     <title>Captcha Page</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
-    <meta content="" name="description">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Slabo+27px|Thasadith" rel="stylesheet">
-
+    <meta content="It's demo page for recaptcha by Siyan HU" name="description">
     <!-- Main Stylesheet File -->
     <style>
+        .container {
+            width: 450px;
+            height: 450px;
+        }
         img {
-            max-width: 100%;
-            max-height: 100%;
+            width: 100%;
+            max_height: 100%;
+        }
+        tick {
+            width: 10px;
+            height: 10px;
         }
         * {
             box-sizing: border-box;
@@ -24,12 +28,14 @@
             float: left;
             width: 33.33%;
             height: 100%;
+            overflow: hidden;
             /*padding: 10px;*/
         }
         /* Clear floats after the columns */
         .row {
-            width: 33%;
-            height: 100px;
+            width: 100%;
+            height: 33%;
+            overflow: hidden;
         }
         /*.row:after {*/
             /*content: "";*/
@@ -39,26 +45,45 @@
     </style>
 </head>
 <body>
-    <div id="row0" class="row" style="background-color:#aaa;">
-        <div id="column00" class="column"></div>
-        <div id="column01" class="column"></div>
-        <div id="column02" class="column"></div>
+    <div class = "container">
+        <div id="row0" class="row" style="background-color:#aaa;">
+            <div id="column00" class="column"></div>
+            <div id="column01" class="column"></div>
+            <div id="column02" class="column"></div>
+        </div>
+        <div id="row1" class="row" style="background-color:#aaa;">
+            <div id="column10" class="column"></div>
+            <div id="column11" class="column"></div>
+            <div id="column12" class="column"></div>
+        </div>
+        <div id="row2" class="row" style="background-color:#aaa;">
+            <div id="column20" class="column"></div>
+            <div id="column21" class="column"></div>
+            <div id="column22" class="column"></div>
+        </div>
     </div>
-    <div id="row1" class="row" style="background-color:#aaa;">
-        <div id="column10" class="column"></div>
-        <div id="column11" class="column"></div>
-        <div id="column12" class="column"></div>
+    <div id="buttons" class="button">
+        <button onclick="refreshClicked()">refresh</button>
+        <button onclick="okClicked()">ok</button>
     </div>
-    <div id="row2" class="row" style="background-color:#aaa;">
-        <div id="column20" class="column"></div>
-        <div id="column21" class="column"></div>
-        <div id="column22" class="column" onclick= click(this.id)></div>
-    </div>
-    <div id="buttons" class="button" style="background-color:#aaa;">
-        <button type="button">next</button>
-        <button type="button">refresh</button>
-    </div>
+    <p id = "msg"></p>
     <script>
+        function refreshClicked() {
+            destroy();
+            //add code to load next group of images
+            load();
+        }
+        function okClicked() {
+            var existedElements = document.getElementsByTagName("img");
+            var noted = "";
+            for (i = 0; i < existedElements.length; i++) {
+                var node = existedElements[i];
+                if (node.style.border != "none") {
+                    noted = noted + "\n" + node.id;
+                }
+            }
+            document.getElementById("msg").innerHTML = noted;
+        }
         function load(){
             var i;
             for (i = 0; i < 9; i++) {
@@ -70,6 +95,15 @@
                 var img = document.createElement("img");
                 img.src = 'assets/' + index_str + '.jpeg';
                 img.alt = index_str;
+                img.id = index_str + '.jpeg';
+                img.style.border = "none";
+                img.addEventListener('click', function () {
+                    var border_style = "thick solid #0000FF";
+                    if (this.style.border != "none") {
+                        this.style.border = "none";
+                    } else
+                        this.style.border = "thick solid #0000FF";
+                });
 
                 newElement.appendChild(img);
                 var row = Math.floor(i / 3);
@@ -77,24 +111,16 @@
                 document.getElementById(column).appendChild(newElement);
             }
         }
-        load();
-    </script>
-    <script>
-        function click(clicked_id) {
-            var clickedElement = document.getElementById(clicked_id);
-            if (clickedElement) {
-                clickedElement.addEventListener('click', function (event) {
-
-                });
+        function destroy() {
+            var existedElements = document.getElementsByClassName('column');
+            for (i = 0; i < existedElements.length; i++) {
+                var node = existedElements[i];
+                while (node.hasChildNodes()) {
+                    node.removeChild(node.firstChild);
+                }
             }
         }
-        function hasChildByClassName(parent, child_class) {
-            var childDivs = parent.getElementsByClassName(child_class);
-            if (childDivs.length)
-                return YES;
-            else
-                return NO;
-        }
+        load();
     </script>
 </body>
 </html>
